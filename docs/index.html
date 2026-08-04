@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Documentação — moodle-atto_justify</title>
+  <meta name="description" content="Documentação oficial do plugin moodle-atto_justify para o editor Atto no Moodle." />
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&f[]=cabinet-grotesk@700,800&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js" defer></script>
+  <style>
+    :root, [data-theme="light"] {
+      --color-bg: #f8fafc; --color-surface: #ffffff; --color-surface-2: #f1f5f9;
+      --color-border: #cbd5e1; --color-divider: #e2e8f0; --color-text: #0f172a;
+      --color-text-muted: #475569; --color-primary: #ea580c; --color-primary-hover: #c2410c;
+      --color-primary-highlight: rgba(234, 88, 12, 0.1);
+      --font-display: 'Cabinet Grotesk', sans-serif; --font-body: 'Satoshi', sans-serif;
+      --font-mono: ui-monospace, SFMono-Regular, monospace;
+    }
+    [data-theme="dark"] {
+      --color-bg: #0b0f17; --color-surface: #131924; --color-surface-2: #1c2536;
+      --color-border: #2a384e; --color-divider: #243044; --color-text: #e2e8f0;
+      --color-text-muted: #94a3b8; --color-primary: #f97316; --color-primary-hover: #fb923c;
+      --color-primary-highlight: rgba(249, 115, 22, 0.15);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--color-bg); color: var(--color-text); font-family: var(--font-body); line-height: 1.6; }
+    header { position: sticky; top: 0; z-index: 100; background: rgba(248,250,252,0.85); backdrop-filter: blur(16px); border-bottom: 1px solid var(--color-divider); padding: 1rem 0; }
+    [data-theme="dark"] header { background: rgba(11,15,23,0.85); }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
+    .nav-inner { display: flex; justify-content: space-between; align-items: center; }
+    .brand { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; color: var(--color-text); font-family: var(--font-display); font-weight: 800; font-size: 1.15rem; }
+    .brand-logo { width: 34px; height: 34px; background: linear-gradient(135deg, #ea580c, #f59e0b); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 800; font-size: 1rem; }
+    .nav-actions { display: flex; gap: 0.75rem; align-items: center; }
+    .btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.4rem 0.9rem; border-radius: 6px; font-weight: 600; font-size: 0.875rem; text-decoration: none; border: 1px solid var(--color-border); background: var(--color-surface-2); color: var(--color-text); cursor: pointer; }
+    .btn-primary { background: var(--color-primary); color: #fff; border: none; }
+    .btn-primary:hover { background: var(--color-primary-hover); }
+    .hero { padding: 3rem 0 2rem; text-align: center; }
+    .hero h1 { font-family: var(--font-display); font-size: 2.5rem; font-weight: 800; color: var(--color-primary); margin-bottom: 0.75rem; }
+    .hero p { color: var(--color-text-muted); font-size: 1.1rem; max-width: 700px; margin: 0 auto; }
+    .layout { display: grid; grid-template-columns: 240px 1fr; gap: 2rem; margin: 2rem 0 4rem; }
+    @media (max-width: 768px) { .layout { grid-template-columns: 1fr; } }
+    .sidebar { position: sticky; top: 5rem; align-self: start; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: 12px; padding: 1.25rem; }
+    .sidebar h4 { font-family: var(--font-display); font-size: 0.85rem; text-transform: uppercase; color: var(--color-text-muted); margin-bottom: 0.75rem; letter-spacing: 0.05em; }
+    .sidebar ul { list-style: none; }
+    .sidebar a { display: block; padding: 0.4rem 0.6rem; color: var(--color-text); text-decoration: none; border-radius: 6px; font-size: 0.9rem; font-weight: 500; }
+    .sidebar a:hover { background: var(--color-primary-highlight); color: var(--color-primary); }
+    .content section { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: 12px; padding: 2rem; margin-bottom: 2rem; }
+    .content h2 { font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 1rem; color: var(--color-text); display: flex; align-items: center; gap: 0.5rem; }
+    pre { background: var(--color-surface-2); border: 1px solid var(--color-border); padding: 1rem; border-radius: 8px; font-family: var(--font-mono); font-size: 0.875rem; overflow-x: auto; margin: 1rem 0; }
+    footer { border-top: 1px solid var(--color-divider); padding: 2rem 0; text-align: center; color: var(--color-text-muted); font-size: 0.875rem; background: var(--color-surface); }
+    footer a { color: var(--color-primary); text-decoration: none; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav-inner">
+      <a href="https://moodle-by-kelsoncm.github.io" class="brand">
+        <div class="brand-logo">Mb</div>
+        <span>moodle-atto_justify</span>
+      </a>
+      <div class="nav-actions">
+        <button class="btn" id="themeBtn" onclick="toggleTheme()"><i data-lucide="sun"></i> <span id="themeLabel">Claro</span></button>
+        <a href="https://moodle-by-kelsoncm.github.io" class="btn"><i data-lucide="arrow-left"></i> Portal Hub</a>
+        <a href="https://github.com/moodle-by-kelsoncm/moodle-atto_justify" target="_blank" class="btn btn-primary"><i data-lucide="github"></i> GitHub</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <h1>moodle-atto_justify</h1>
+      <p>Plugin para o editor Atto do Moodle que adiciona a funcionalidade e botão de alinhamento de texto justificado.</p>
+    </section>
+
+    <div class="layout">
+      <nav class="sidebar">
+        <h4>Navegação</h4>
+        <ul>
+          <li><a href="#overview">Visão Geral</a></li>
+          <li><a href="#installation">Instalação</a></li>
+          <li><a href="#configuration">Configuração</a></li>
+          <li><a href="#usage">Desenvolvimento</a></li>
+        </ul>
+      </nav>
+
+      <div class="content">
+        <section id="overview">
+          <h2><i data-lucide="info"></i> Visão Geral</h2>
+          <p>O plugin <strong>moodle-atto_justify</strong> estende a barra de ferramentas do editor Atto nativo no Moodle, adicionando o botão de justificar texto em parágrafos e seleções de conteúdo.</p>
+          <ul style="margin: 1rem 0 0 1.25rem;">
+            <li>Suporte nativo ao editor Atto (Moodle 3.x / 4.x)</li>
+            <li>Código JavaScript pré-compilado via framework YUI (Shifter)</li>
+            <li>Aplicação direta de regras <code>text-align: justify</code></li>
+          </ul>
+        </section>
+
+        <section id="installation">
+          <h2><i data-lucide="download"></i> Instalação</h2>
+          <p>Instale o plugin dentro do diretório de plugins do editor Atto:</p>
+          <pre><code>cd /caminho/do/moodle/lib/editor/atto/plugins
+git clone https://github.com/moodle-by-kelsoncm/moodle-atto_justify.git justify</code></pre>
+          <p>Após clonar, acesse <strong>Administração do site → Notificações</strong> para concluir a instalação.</p>
+        </section>
+
+        <section id="configuration">
+          <h2><i data-lucide="settings"></i> Configuração</h2>
+          <ol style="margin-left: 1.25rem;">
+            <li>Acesse: <strong>Administração do site → Plug-ins → Editores de texto → Configurações da barra de ferramentas Atto</strong>.</li>
+            <li>Na caixa <strong>Configuração da barra de ferramentas</strong>, localize a linha <code>align = align</code>.</li>
+            <li>Altere para: <code>align = align, justify</code>.</li>
+            <li>Salve as alterações.</li>
+          </ol>
+        </section>
+
+        <section id="usage">
+          <h2><i data-lucide="code"></i> Desenvolvimento (Shifter)</h2>
+          <p>Para modificar o arquivo de botões do YUI em <code>yui/src/button/js/button.js</code>, compile usando o shifter:</p>
+          <pre><code>cd yui/src/button
+sudo shifter</code></pre>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>© moodle-by-kelsoncm — Desenvolvido para a comunidade Moodle. <a href="https://moodle-by-kelsoncm.github.io">Voltar ao Portal Hub</a></p>
+    </div>
+  </footer>
+
+  <script>
+    function toggleTheme() {
+      const current = document.documentElement.getAttribute('data-theme') || 'light';
+      const next = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      document.getElementById('themeLabel').textContent = next === 'dark' ? 'Escuro' : 'Claro';
+      localStorage.setItem('theme', next);
+    }
+    const saved = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', saved);
+    document.getElementById('themeLabel').textContent = saved === 'dark' ? 'Escuro' : 'Claro';
+    document.addEventListener('DOMContentLoaded', () => { if (window.lucide) lucide.createIcons(); });
+  </script>
+</body>
+</html>
