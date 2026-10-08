@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>moodle-atto_justify — Documentation</title>
+  <script>
+    (function() {
+      // 1. Preferência salva previamente
+      var savedLang = null;
+      try {
+        savedLang = localStorage.getItem('user_lang');
+      } catch (e) {}
+
+      if (savedLang === 'pt-br' || savedLang === 'pt_BR' || savedLang === 'pt') {
+        window.location.replace('./pt-br/');
+        return;
+      }
+      if (savedLang === 'en') {
+        window.location.replace('./en/');
+        return;
+      }
+
+      // 2. Detecção automática baseada no navegador
+      var navLang = (navigator.language || navigator.userLanguage || '').toLowerCase();
+      if (navLang.startsWith('pt')) {
+        window.location.replace('./pt-br/');
+      } else {
+        // Fallback default: English
+        window.location.replace('./en/');
+      }
+    })();
+  </script>
+</head>
+<body>
+  <p>Redirecting to documentation... <a href="./en/">Click here if not redirected</a>.</p>
+</body>
+</html>
