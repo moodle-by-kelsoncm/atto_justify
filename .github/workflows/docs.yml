@@ -37,7 +37,15 @@ jobs:
 
       - name: Build Documentation with Sphinx
         run: |
-          sphinx-build -W -b html docs docs/_build/html
+          if [ -d "docs/en" ] && [ -d "docs/pt-br" ]; then
+            sphinx-build -W -b html docs/en docs/_build/html/en
+            sphinx-build -W -b html docs/pt-br docs/_build/html/pt-br
+            if [ -f "docs/index.html" ]; then
+              cp docs/index.html docs/_build/html/index.html
+            fi
+          else
+            sphinx-build -W -b html docs docs/_build/html
+          fi
 
       - name: Upload Pages Artifact
         if: (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master') && github.event_name != 'pull_request'
