@@ -1,5 +1,10 @@
 # moodle_atto_justify
 
+> [!WARNING]
+> **Repositório arquivado / Archived repository.**
+> O editor Atto saiu do core a partir do Moodle 5.0. Para justificar texto no TinyMCE, use o [tiny_justify](https://github.com/moodle-by-kelsoncm/tiny_justify) ([Moodle Marketplace](https://marketplace.moodle.com/plugins/tiny_justify)).
+> The Atto editor was removed from core in Moodle 5.0. To justify text in TinyMCE, use [tiny_justify](https://github.com/moodle-by-kelsoncm/tiny_justify).
+
 Módulo para adicionar função de justificar texto no editor Atto para o Moodle.
 
 ## Instalação
